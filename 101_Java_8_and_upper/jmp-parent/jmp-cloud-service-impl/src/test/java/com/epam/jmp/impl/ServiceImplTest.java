@@ -24,16 +24,16 @@ public class ServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        service = new ServiceImpl(); // Instantiate the service implementation
-        user = new User("Alice", "Smith", LocalDate.of(1990, 5, 15));  // Mock user
-        bankCard = mock(BankCard.class);  // Mock BankCard for testing
+        service = new ServiceImpl();
+        user = new User("Alice", "Smith", LocalDate.of(1990, 5, 15));
+        bankCard = mock(BankCard.class);
     }
 
     @Test
     void testSubscribe() {
         service.subscribe(bankCard);
 
-        Optional<Subscription> subscription = service.getSubscriptionByBankCardNumber("DefaultDebitNumber");  // Test if card is subscribed
+        Optional<Subscription> subscription = service.getSubscriptionByBankCardNumber("DefaultDebitNumber");
 
         assertTrue(subscription.isPresent(), "Subscription should be present.");
         assertEquals("DefaultDebitNumber", subscription.get().getBankcard(), "The bank card number should match.");

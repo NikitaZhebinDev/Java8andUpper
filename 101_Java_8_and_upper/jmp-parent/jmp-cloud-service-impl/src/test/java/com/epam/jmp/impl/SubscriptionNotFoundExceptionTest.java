@@ -16,13 +16,12 @@ public class SubscriptionNotFoundExceptionTest {
 
     @BeforeEach
     void setUp() {
-        service = new ServiceImpl(); // ServiceImpl instance
-        bankCard = mock(BankCard.class);  // Mock a bank card
+        service = new ServiceImpl();
+        bankCard = mock(BankCard.class);
     }
 
     @Test
     void testSubscriptionNotFoundException() {
-        // Simulate that the card is not found
         assertThrows(SubscriptionNotFoundException.class, () -> {
             service.getSubscriptionByBankCardNumber("NonExistentCard").orElseThrow(() -> new SubscriptionNotFoundException("Subscription not found"));
         });

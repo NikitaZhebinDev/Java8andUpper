@@ -20,7 +20,6 @@ public class ServiceImpl implements Service {
 
     @Override
     public void subscribe(BankCard bankCard) {
-        // Create a new subscription with the current date
         Subscription subscription = new Subscription(bankCard.getNumber(), LocalDate.now());
         subscriptions.add(subscription);
         System.out.println("Subscribed: " + subscription);
@@ -28,7 +27,6 @@ public class ServiceImpl implements Service {
 
     @Override
     public Optional<Subscription> getSubscriptionByBankCardNumber(String cardNumber) {
-        // Using orElseThrow to throw SubscriptionNotFoundException if not found
         return Optional.ofNullable(subscriptions.stream()
             .filter(subscription -> subscription.getBankcard().equals(cardNumber))
             .findFirst()
@@ -44,19 +42,10 @@ public class ServiceImpl implements Service {
         );
     }
 
-    /**
-     * Method to get all users who are over 18 years old
-     * */
-    public List<User> getUsersOver18() {
-        return getAllUsers().stream()
-            .filter(Service::isPayableUser)
-            .collect(Collectors.toUnmodifiableList()); // Collect into an unmodifiable list
-    }
-
     @Override
     public List<Subscription> getAllSubscriptionsByCondition(Predicate<Subscription> condition) {
         return subscriptions.stream()
-            .filter(condition)  // Apply the predicate filter
-            .collect(Collectors.toList()); // Collect the filtered results into a list
+            .filter(condition)
+            .collect(Collectors.toUnmodifiableList());
     }
 }
